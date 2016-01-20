@@ -1,6 +1,6 @@
 """Övningar på de enklare ADTerna."""
 
-from .exceptions import EmptyStack, EmptyQueue
+from exceptions import EmptyStack, EmptyQueue
 
 
 class Stack():
@@ -10,32 +10,35 @@ class Stack():
     def __init__(self):
         """Initierar en tom stack.
         """
-        pass
+        self.data = list()
 
     def push(self, item):
         """Lägg till `item` överst på stacken.
         """
-        pass
+        self.data.append(item)
 
     def pop(self):
         """Plockar bort och returnerar översta värdet på stacken.
         """
-        pass
-
+        self.data.pop(-1)
+        #emptystackexception
     def peek(self):
         """Returnerar översta värdet på stacken.
         """
-        pass
+        try:
+            return self.data[-1]
+        except:
+            raise EmptyStack
 
     def is_empty(self):
         """Returnerar `True` om stacken är tom, annars `False`.
         """
-        pass
+        return len(self.data) == 0
 
     def size(self):
         """Returnerar antalet värden på stacken.
         """
-        pass
+        return len(self.data)
 
 
 class Queue():
@@ -45,24 +48,28 @@ class Queue():
     def __init__(self):
         """Initierar en tom kö.
         """
-        pass
+        self.queue = list()
 
     def enqueue(self, item):
         """Lägger till `ìtem` i slutuet på kön.
         """
-        pass
+        self.queue.append(item)
 
     def dequeue(self):
         """Plockar bort det första värdet i kön och returnerar det.
         """
-        pass
+        try:
+            self.queue.pop(0)
+        except:
+            raise EmptyQueue
 
     def is_empty(self):
         """Returnerar `True` om kön är tom, annars `False`.
         """
-        pass
+        return  len(self.queue) == 0
+        
 
     def size(self):
         """Returnerar antalet värden i kön.
         """
-        pass
+        return len(self.queue)
