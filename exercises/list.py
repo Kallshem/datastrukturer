@@ -6,8 +6,8 @@ class Node():
     """Implementation av nod för `UnorderedList`.
     """
 
-    def __init__(self, data):
-        """Initiera noden med attributen `self._data` och `self._next`.
+    def __init__(self, data, next):
+        """Initiera noden med attributen `self.data` och `self.next`.
         """
         pass
 
@@ -44,7 +44,7 @@ class UnorderedList():
         pass
 
     def remove(self, item):
-        """Raderar `item` från listan.
+        """Raderar första förekomsten av `item` från listan.
         """
         pass
 
@@ -59,7 +59,7 @@ class UnorderedList():
         pass
 
     def index(self, item):
-        """Returnerar index i listan för `item`.
+        """Returnerar index i listan för första förekomsten av `item`.
         """
         pass
 
