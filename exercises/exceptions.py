@@ -10,3 +10,6 @@ class EmptyQueue(Exception):
 
 class EmptyList(Exception):
     pass
+
+class InvalidIndex(Exception):
+	pass

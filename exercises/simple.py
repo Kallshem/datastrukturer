@@ -1,6 +1,6 @@
 """Övningar på de enklare ADTerna."""
 
-from exceptions import EmptyStack, EmptyQueue
+from .exceptions import EmptyStack, EmptyQueue
 
 
 class Stack():
@@ -15,18 +15,22 @@ class Stack():
     def push(self, item):
         """Lägg till `item` överst på stacken.
         """
-        self.data.append(item)
-
+        self.data.insert(0, item)
+        #om man skriver *args, kan den ta emot hur många items som helst då?
+   
     def pop(self):
         """Plockar bort och returnerar översta värdet på stacken.
         """
-        self.data.pop(-1)
-        #emptystackexception
+        try:
+            self.data.pop(0)
+        except:
+            raise EmptyStack
+
     def peek(self):
         """Returnerar översta värdet på stacken.
         """
         try:
-            return self.data[-1]
+            return self.data[0]
         except:
             raise EmptyStack
 
