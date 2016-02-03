@@ -2,6 +2,7 @@ import unittest
 from exercises.simple import Stack, Queue
 from exercises.exceptions import EmptyStack, EmptyQueue
 
+
 class StackTests(unittest.TestCase):
     def test_Stack(self):
         self.assertIn('__init__', dir(Stack))
