@@ -1,12 +1,7 @@
 """Övningar på BinarySearchTree (BST).
 
-Ett BST är ett rotat binärt träd där varje nod har en `key` och ett
-eventuellt värde, `value`. Varje nod i trädet finns två träd,
-`left` och `right`. En nods `key` måste vara större än alla noders `key`
-i det vänstra trädet och mindre än alla noders `key` i det högra trädet.
-
-Utseendet hos ett BST beror i väldigt hög grad på i vilken ordning noderna
-lagts till. I värsta fall degenererar de fullständigt.
+Ett BST är ett rotat binärt träd där varje nod har en `key` och ett eventuellt värde, `value`. Varje nod i trädet finns två träd,
+`left` och `right`. En nods `key` måste vara större än alla noders `key`i det vänstra trädet och mindre än alla noders `key` i det högra trädet.
 
 `Wikipedia <https://en.wikipedia.org/wiki/Binary_search_tree>`_
 """
@@ -16,14 +11,14 @@ class BinarySearchTree():
     """Implementation av BinarySearchTree (BST)."""
 
     def __init__(self, key, value=None):
-        """Initiera det tomma trädet."""
+        """Initierar det tomma trädet."""
         self.key = key
         self.left = None
         self.right = None
         self.value = value
 
     def insert(self, key, value=None):
-        """Lägg till en nod i trädet."""
+        """Lägger till en nod i trädet."""
         current = self
         while True:
             if key > current.key:
@@ -41,7 +36,7 @@ class BinarySearchTree():
 
 
     def lookup(self, key):
-        """Sök efter noden med matchande key.
+        """Söker efter noden med matchande key.
 
         Returnerar matchande noden eller None.
         """
@@ -60,56 +55,74 @@ class BinarySearchTree():
 
     def delete(self, key):
         """Radera noden med matchande key."""
-        def replacement(ins):
-            ins = ins.right
-            while ins.left != None:
-                ins = ins.left
-            return ins
+        "tar bort noden som ska tas bort och ersätt den med den nod som har högst värde av dem som har mindre värde än den som ska deletas"
 
-        def FindParent(self, key):
-            current = self
-            while True:
-                if key == current.left:
-                    direction = "left"
-                    return current, direction
+        if key == self.key:
+            number_of_children = 0
+            if self.left:
+                number_of_children += 1
+            if self.right:
+                number_of_children += 1
 
-                elif key == current.right:
-                    direction = "right"
-                    return current, direction
+            if number_of_children == 0:  
+                if parent.left == self:
+                    parent.left = None
                 else:
-                    if key > current.key:
-                        current = current.right
-                    elif key <= current.key:
-                        current = current.left
+                    parent.right = None
+
+            elif number_of_children == 1: 
+                if self.left is not None:  
+                    new_node = self.left
+                else:                     
+                    new_node = self.right
+
+                if parent.left == self:
+                    parent.left = new_node
+                else:
+                    parent.right = new_node
+
+            elif number_of_children == 2:
+                # 1. find node with
+                    # a. highest key to the left of self or
+                    # b. lowest key to the right of self
+                # 2. set pointer of parent.left or parent.right to node
+
+                # follow self.left of self.right to find right replacement-node
+                successor = self.right
+                successor_parent = self
+                while successor.left:
+                    successor_parent = successor
+                    successor = successor.left
+
+                if parent:
+                    # Modify pointers so current will fit in it's new spot
+                    successor.left = self.left
+                    successor.right = self.right
+
+                    # Update parent's pointer
+                    if parent.left == self:
+                        parent.left = successor
                     else:
-                        raise AttributeError
-                                   
-        replacer = replacement(self)
-        
-        parent, direction = FindParent(self, key)      
-        
-        if direction == "left":
-            mem_right = parent.left.right
-            mem_left = parent.left.left
-            parent.left = replacer.left
-            parent.left.right = mem_right
-            parent.left.left = mem_left
-            replacer.left = None
-            #objektet som låg på replacer.left försvinner?
-        elif direction == "right":
-            mem_right = parent.right.right
-            mem_left = parent.right.left
-            parent.right = replacer.left
-            parent.right.right = mem_right
-            parent.right.left = mem_left
-            replacer.left = None
+                        parent.right = successor
+
+                else:
+                    self.key = successor.key
+                    self.value = successor.value
+
+                # Delete old position
+                if successor_parent.left == successor:
+                    successor_parent.left = None
+                else:
+                    successor_parent.right = None
+
+            return True  # Hopefully a success
         else:
             print("FML")
 
     def traverse(self):
         """En in-order traversering av trädets noder.
 
-        Implementera som en generator.
+        Implementerad som en generator.
         """
 
         if not self.left is None:
@@ -129,10 +142,3 @@ class BinarySearchTree():
         """Utskrift av trädets alla noder (in-order)."""
         # Använd traverse...
         return ', '.join([str(x) for x in self.traverse()])
-
-def SetupForTest(ins):
-    ints = [150, 50, 140, 40, 145, 160, 155, 157, 153]
-    for i in ints:
-        ins.insert(i)
-    print("accomplished")
-    return ins

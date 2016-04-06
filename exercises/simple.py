@@ -11,7 +11,7 @@ class Stack():
         self.data = list()
 
     def push(self, item):
-        """Lägg till `item` överst på stacken."""
+        """Lägger till `item` överst på stacken."""
         self.data.insert(0, item)
         #om man skriver *args, kan den ta emot hur många items som helst då?
    

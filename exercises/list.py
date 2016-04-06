@@ -5,7 +5,7 @@ class Node():
     """Implementation av nod för `UnorderedList`."""
 
     def __init__(self, data, next):
-        """Initiera noden med attributen `self.data` och `self.next`."""
+        """Initierar noden med attributen `self.data` och `self.next`."""
         self.data = data
         self.next = next
 
@@ -17,7 +17,7 @@ class UnorderedList():
     """
 
     def __init__(self):
-        """Initiera den tomma listan."""
+        """Initierar den tomma listan."""
         self.head = None
 
     def is_empty(self):
@@ -25,7 +25,7 @@ class UnorderedList():
         return self.head is None
 
     def add(self, item):
-        """Lägg till `item` i början av listan."""
+        """Lägger till `item` i början av listan."""
         self.head = Node(item, self.head)
 
     def size(self):
@@ -49,19 +49,8 @@ class UnorderedList():
             current = current.next
         return False
 
-
-        # while current.data is not item:
-        #     if current.next is not None:
-        #         current = current.next
-        #     else:
-        #         return False
-
-        # return True
-
     def remove(self,item):
         """Raderar första förekomsten av `item` från listan."""
-        #None evals False
-        #FÖRSTA ITEMS I LISTAN PÅ LISTOR SOM ÄR STÖRRE ÄN TVÅ GÅR INTE
         try:
             if self.size() > 2: 
                 if self.head.data == item:
@@ -96,8 +85,7 @@ class UnorderedList():
             raise ValueError
 
     def append(self, item):
-        """Lägg till `item` i slutet av listan."""
-        #None evals False
+        """Lägger till `item` i slutet av listan."""
         if self.head == None:
             self.add(item)
         else:
@@ -107,7 +95,7 @@ class UnorderedList():
             current.next = Node(item, None)
         
     def insert(self, item, position=None):
-        """Lägg till `item` på index `position`."""
+        """Lägger till `item` på index `position`."""
         if self.head == None:
             self.add(item)
             return
@@ -191,16 +179,3 @@ class UnorderedList():
             raise ValueError
         else:
             print("FML")
-
-
-
-
-
-
-    def list_em(self):
-        current = self.head
-        #None evals False
-        while current:
-            print(current.data)
-            current = current.next
-

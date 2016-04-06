@@ -1,72 +1,64 @@
 """Övningar på ADTn Graph."""
 
 
-class Vertex():
+class Node():
     """Implementation av nod. Används tillsammans med `Graph`."""
     def __init__(self, key):
         """Initiera noden med `key` och utan grannar."""
         self.key = key
-        self._connected_to = {}
+        self._connections = dict()
 
-    def add_neighbor(self, neighbor, weight=None):
+    def add_connection(self, neighbor, weight=None):
         """Lägg till en granne med den frivilliga vikten `weight`."""
-        self._connected_to[neighbor] = weight
+        self._connections[neighbor] = weight
 
     def get_connections(self):
         """Returnera en lista med nodens grannar."""
-        return self._connected_to.keys()
+        return self._connections.keys()
 
     def get_weight(self, neighbor):
         """Returnera vikten hos kanten till grannen `neighbor`."""
-        return self._connected_to[neighbor]
+        return self._connections[neighbor]
 
     def __repr__(self):
-        """Object representation with `self.key` as identifiera and the first
-        five neighbors.
-        """
+        """Object representation med `self.key` som identifierar fem första
+        neighbors."""
 
-        neighbors = sorted(connected_to.keys())
-        if len(neighbors) > 5:
-            del neighbors[5:]
-            neighbors.append('...')
-        return '<Vertex {}: {}>'.format(self.key, ', '.join(neighbors))
+        connections = sorted(self._connections.keys())
+        if len(connections) > 5:
+            del connections[5:]
+            connections.append('...')
+        return '<Node: {}: {}>'.format(self.key, ', '.join(connections))
 
 
 class Graph():
-    """Implementation av ADTn Graph med metoden `Adjacency list`.
-
-    En dictionary, `self._nodes`, används för att lagra alla noder och kanter.
-    En node är en nyckel i `self._nodes` och dess kanter representeras av en
-    lista med parvisa tupler.
-
-    En graf med noderna `a`, `b` och `c` och kanter mellan alla tre skulle
-    representeras som nedan.
-
-    self._nodes = {'a': (('b', 4), ('c', 2)),
-                   'b': (('a', 4), ('c', 5)),
-                   'c': (('a', 2), ('b', 5))}
-    """
+    """Implementation av ADTn Graph."""
 
     def __init__(self):
-        """Initiera `self._vertices`."""
-        self._vertices = []
+        """Initierar `self._nodes`."""
+        self._nodes = dict()
 
-    def add_vertex(self):
-        """Lägg till en ny nod."""
-        pass
+    def add_node(self, key):
+        """Lägger till en ny nod."""
+        self._nodes[key] = Node(key)
 
-    def get_vertex(self, key):
-        """Returnera noden med matchande `key`."""
-        pass
+    def add_edge(self, start, finish, weight=None):
+        self._nodes[start].add_connection(finish, weight)
 
-    def get_vertices(self):
-        """Returnera grafens alla noder."""
-        pass
+    def get_node(self, key):
+        """Returnerar noden med matchande `key`."""
+        return self._nodes[key]
+
+    def get_graph_nodes(self):
+        """Returnerar grafens alla noder."""
+        return self._nodes.keys()
 
     def __contains__(self, key):
         """Kontrollera om noden med matchande `key` finns."""
-        pass
+        if key in self._nodes.keys():
+            return True
+        return False
 
     def __iter__(self):
         """Gör det enkelt att iterera över grafens alla noder."""
-        pass
+        return iter(self._nodes.values())
